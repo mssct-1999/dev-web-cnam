@@ -1,5 +1,5 @@
-<template>
-  <div id="app">
+ <template>
+  <v-app id="main-app">
     <div v-if="isLoading"> 
       <LoadingComponent v-if="isLoading"></LoadingComponent>
     </div>
@@ -30,12 +30,11 @@
         <router-view />
       </div>
     </div>
-  </div>
+  </v-app>
 </template>
 
 <script>
 import LoadingComponent from './components/LoadingComponent.vue';
-
   var prevScrollPos = window.pageYOffset;
   window.onscroll = function() {
     var currentScrollPos = window.pageYOffset;
@@ -69,7 +68,7 @@ export default {
 <!-- CSS appliqué à tous les composants  -->
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Pontano+Sans&family=Lobster&family=Noto+Sans+JP:wght@100&display=swap');
-  body {
+  #main-app {
     background-color:#BAD5CA !important;
   }
 </style>
@@ -81,7 +80,6 @@ export default {
     display:flex;
     justify-content:space-between;
   }
-
   .nav-link {
     /**color:#D3C8B7 !important;**/
     color:black;
@@ -89,7 +87,6 @@ export default {
     font-family:'Pontano Sans',sans-serif;
     font-weight:bolder;
   }
-
   .navbar-brand {
     display:flex;
     flex-direction:column;
@@ -98,26 +95,21 @@ export default {
     justify-content:center;
     padding-left: 100px;
   }
-
   #menu-container {
     padding-right: 100px;
   }
-
   .navbar-brand img {
     width:100px;
     margin-left: 8px;
   }
-
   #brand-text {
     position:relative;
     color:black;
     font-weight:bolder;
   }
-
   .nav-link i {
     margin-right:5px;
   }
-
   .nav-link img {
     margin-right:5px;
   }

@@ -1,13 +1,18 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from "./router"
-import vuetify from 'vuetify'
+import vuetify from './plugins/vuetify';
+import VueSession from 'vue-session'
+
+Vue.use(VueSession)
+
+import './assets/scss/main.scss'
 
 Vue.config.productionTip = false
-Vue.use(vuetify)
+
 
 new Vue({
-  vuetify,
   router,
-  render: h => h(App),
+  vuetify,
+  render: h => h(App)
 }).$mount('#app')

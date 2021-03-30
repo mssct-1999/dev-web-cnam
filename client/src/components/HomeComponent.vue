@@ -1,8 +1,8 @@
 <template>
     <div id="main">
         <div id="second-navbar">
-            <PaintComponentImage class="paint-link" width="130" mgTopPx="0" title="Présentation"></PaintComponentImage>
-            <PaintComponentImage class="paint-link" width="130" mgTopPx="100" title="Qui suis-je ?"></PaintComponentImage>
+            <PaintComponentImage href="#main-PresentationComponent" class="paint-link" width="130" mgTopPx="10" title="Présentation"></PaintComponentImage>
+            <PaintComponentImage class="paint-link" width="130" mgTopPx="50" title="Qui suis-je ?"></PaintComponentImage>
             <PaintComponentImage class="paint-link" width="150" mgTopPx="0" title="Où me trouvez ?"></PaintComponentImage>
             <PaintComponentImage class="paint-link" width="130" mgTopPx="50" title="Contact"></PaintComponentImage>
         </div>
@@ -25,7 +25,7 @@ export default {
         justify-content: center;
         align-items: center;
         padding:50px;
-        margin-bottom:70px;
+        margin-bottom:50px;
     }
 
     #second-navbar * {

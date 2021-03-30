@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require("cors");
 
+
 const app = express();
 
 const db = require("./app/models");
@@ -19,7 +20,7 @@ db.mongoose
     });
 
 var corsOptions = {
-    origin: "http://localhost:8081"
+    origin: "http://localhost:8080"
 }
 
 app.use(cors(corsOptions));
@@ -30,13 +31,12 @@ app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended:true}));
 
-// simple route
-app.get("/",(req,res) => {
-    res.json({message: "Welcome on application"});
-});
+// routes 
+const utilisateurRoutes = require("./app/routes/utilisateur.routes");
+app.use('/utilisateur',utilisateurRoutes);
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
     console.log("Server is running on port " + PORT);
 });
