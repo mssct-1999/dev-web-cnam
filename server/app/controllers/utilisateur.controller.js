@@ -38,6 +38,7 @@ exports.loginUser = async (req,res) => {
         const login = req.body.login;
         const password = req.body.password;
         const user = await Utilisateur.findByCredentials(login,password);
+        console.log("(Utilisateur.controller.loginUser) - Utilisateur retourné : " + user);
         if (!user) {
             return res.status(401).json({ error: "Login failed! Check authentication credentials" });
         }

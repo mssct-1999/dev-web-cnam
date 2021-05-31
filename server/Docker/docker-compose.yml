@@ -1,0 +1,35 @@
+version: "3"
+services:
+  server-node:
+    container_name: server-node
+    image: hippolyte/server-node
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongo
+    networks:
+      - mevn-app
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    ports:
+      - '27017:27017'
+    networks: 
+      - mevn-app
+  vuejs-client:
+    container_name: vuejs
+    image: hippolyte/dockerize-vuejs-sophrofraise
+    ports:
+      - "8080:8080"
+    networks: 
+      - mevn-app
+networks:
+  mevn-app:
+    driver: bridge
+
+
+# Commands
+# docker-compose up

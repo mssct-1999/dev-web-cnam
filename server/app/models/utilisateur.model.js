@@ -34,7 +34,7 @@ utilisateurSchema.statics.findByCredentials = async (login,password) => {
         throw new Error({error: "Login invalide"});
     }
     const isPasswordMatch = await bcrypt.compare(password,user.password);
-    console.log(isPasswordMatch)
+    console.log("(Utilisateur.finByCredentials) - Vérification mot de passe : " + isPasswordMatch)
     if (!isPasswordMatch) {
         throw new Error({error:"Mot de passe invalide"});
     }

@@ -13,16 +13,25 @@
         </div>
         <div id="menu-container">
           <div class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <router-link to="/presentation" class="nav-link"><img src="./assets/icons/strawberry.svg" height="20px" width="20px" alt="Icône de fraise">Présentation</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/contact" class="nav-link"><i class="fas fa-address-card"></i>Contact</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/login" class="nav-link"><i class="fas fa-user"></i>Connexion</router-link>
-            </li>
-          </div>
+              <li class="nav-item">
+                <router-link to="/presentation" class="nav-link"><img src="./assets/icons/strawberry.svg" height="20px" width="20px" alt="Icône de fraise">Présentation</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/contact" class="nav-link"><i class="fas fa-address-card"></i>Contact</router-link>
+              </li>
+              <li class="nav-item" v-if="this.$session.exists()">
+                <router-link to="/admin" class="nav-link" @click="logout"><i class="fas fa-crown"></i>Admin</router-link>
+              </li>
+              <li class="nav-item" v-if="!this.$session.exists()">
+                <router-link to="/login" class="nav-link"><i class="fas fa-user"></i>Connexion</router-link>
+              </li>
+              <li class="nav-item" v-else>
+                <a class="nav-link" @click="logout"><i class="fas fa-user"></i>Déconnexion</a>
+              </li>
+            </div>
+            <div v-if="this.$session.exists()" style="display:flex;justify-content:flex-end;">
+              <span id="textConnectedAs">Connecté(e) : <span style="font-weight:bolder;">{{ this.$session.get('identite') }}</span></span>
+            </div>
         </div>
       </nav>
       <!-- content of the page -->
@@ -35,6 +44,8 @@
 
 <script>
 import LoadingComponent from './components/LoadingComponent.vue';
+import Swal from "sweetalert2"
+
   var prevScrollPos = window.pageYOffset;
   window.onscroll = function() {
     var currentScrollPos = window.pageYOffset;
@@ -57,6 +68,17 @@ export default {
       isLoading:true
     }
   },
+  methods: {
+    logout() {
+      this.$session.destroy()
+      this.$router.push('/login')
+      Swal.fire({
+        title:"Déconnexion réussie",
+        icon:'success',
+        confirmButtonText:'Ok'
+      })
+    }
+  },
   mounted() {
     setTimeout(() => {
       this.isLoading = false
@@ -70,6 +92,23 @@ export default {
   @import url('https://fonts.googleapis.com/css2?family=Pontano+Sans&family=Lobster&family=Noto+Sans+JP:wght@100&display=swap');
   #main-app {
     background-color:#BAD5CA !important;
+  }
+
+  h1 {
+    font-size:25px;
+    font-family:'Pontano Sans',sans-serif;
+    font-weight: bolder;
+  }
+  .custom-card {
+    background-color:white;
+    padding:20px;
+    border-radius:10px;
+    width:25%;
+    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+  }
+  .custom-card-body {
+    display:flex;
+    flex-direction: column;
   }
 </style>
 
@@ -112,5 +151,9 @@ export default {
   }
   .nav-link img {
     margin-right:5px;
+  }
+
+  #textConnectedAs {
+    font-size:13px;
   }
 </style>

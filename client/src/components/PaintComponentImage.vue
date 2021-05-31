@@ -50,4 +50,8 @@ export default {
     a:hover {
         text-decoration:none;
     }
+
+    a {
+        text-decoration:none;
+    }
 </style>

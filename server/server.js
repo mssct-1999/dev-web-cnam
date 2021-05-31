@@ -6,6 +6,7 @@ const cors = require("cors");
 const app = express();
 
 const db = require("./app/models");
+console.log("Database url connection : " + db.url);
 db.mongoose
     .connect(db.url, {
         useNewUrlParser:true,
@@ -34,6 +35,11 @@ app.use(bodyParser.urlencoded({extended:true}));
 // routes 
 const utilisateurRoutes = require("./app/routes/utilisateur.routes");
 app.use('/utilisateur',utilisateurRoutes);
+
+// simple route
+app.get("/",(req,res) => {
+    res.json({message: "Welcome on application"});
+});
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8000;

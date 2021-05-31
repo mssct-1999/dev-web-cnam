@@ -51,6 +51,8 @@
 
 <script>
 import axios from 'axios'
+import Swal from 'sweetalert2'
+
 export default {
     name:"LoginComponent",
     data:function() {
@@ -70,6 +72,14 @@ export default {
                     this.$session.set('identite',user.prenom + " " + user.nom)
                     this.$session.start()
                     this.$router.push({name:'admin'})
+                }
+                else {
+                    Swal.fire({
+                        title:"Une erreur s'est produite",
+                        text:"L'identifiant ou le mot de passe sont incorrect",
+                        icon:'error',
+                        confirmButtonText:'Ok'
+                    })
                 }
             })
         }

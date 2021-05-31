@@ -1,13 +1,13 @@
 <template>
-    <div style="display:flex;justify-content:center;align-items:center;height:60vh;">
-        {{ this.$session.get('identite') }}
+    <div>
+        <h1 class="mg-l-40 mg-t-40">Bienvenue {{ this.$session.get('identite') }}</h1>
     </div>
 </template>
 
 <script>
 // import axios from 'axios'
+import Swal from 'sweetalert2'
 export default {
-     /* eslint-disable */
     name:"AdminComponent",
     props: ['user'],
     data:function() {
@@ -16,7 +16,13 @@ export default {
         }
     },
     beforeCreate: function() {
-        if (!this.session.exists()) {
+        if (!this.$session.exists()) {
+            Swal.fire({
+                title:"Accès refusée",
+                text:'Vous devez être connecté pour accéder à cette page',
+                icon:'error',
+                confirmButtonText:'Ok'
+            })
             this.$router.push('/')
         }
     },
