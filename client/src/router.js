@@ -23,6 +23,18 @@ export default new Router({
             alias:"admin",
             name:"admin",
             component: () => import("./components/AdminComponent")
+        },
+        {
+            path:"/patients",
+            alias:"patients",
+            name:"patients",
+            component: () => import('./components/PatientComponent')
+        }, 
+        {
+            path:"/compta",
+            alias:"compta",
+            name:"compta",
+            component: () => import('./components/ComptaComponent') 
         }
     ]
 })

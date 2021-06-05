@@ -20,7 +20,10 @@
                 <router-link to="/contact" class="nav-link"><i class="fas fa-address-card"></i>Contact</router-link>
               </li>
               <li class="nav-item" v-if="this.$session.exists()">
-                <router-link to="/admin" class="nav-link" @click="logout"><i class="fas fa-crown"></i>Admin</router-link>
+                <router-link to="/patients" class="nav-link"><i class="fas fa-hospital-user"></i>Patients</router-link>
+              </li>
+              <li class="nav-item" v-if="this.$session.exists()">
+                <router-link to="/compta" class="nav-link"><i class="fas fa-wallet"></i>Comptabilité</router-link>
               </li>
               <li class="nav-item" v-if="!this.$session.exists()">
                 <router-link to="/login" class="nav-link"><i class="fas fa-user"></i>Connexion</router-link>
@@ -82,7 +85,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.isLoading = false
-    },10000)
+    },1)
   }
 };
 </script>
