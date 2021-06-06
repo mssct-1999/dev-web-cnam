@@ -74,7 +74,6 @@ exports.edit = async (req,res) => {
         var prenom = req.body.prenom;
         var nom = req.body.nom;
         var dateNaiss = req.body.dateNaiss;
-        console.log(dateNaiss);
         const splitDate = dateNaiss.split('/')
         var year = parseInt(splitDate[2]);
         var month = parseInt(splitDate[1])-1;
@@ -89,6 +88,28 @@ exports.edit = async (req,res) => {
             }
         })
         res.status(201).json({"update":"ok"})
+    } catch(err) {
+        res.status(400).json({err:err})
+    }
+}
+
+/**
+ * Fonction: findById
+ * Description: Retourne les informations d'un patient dont l'id est passé en paramètre.
+ */
+exports.findById = async (req,res) => {
+    try {
+        var id = req.params.id;
+        console.log(id)
+        Patient.findById(id, function(err,patient) {
+            if (err) {
+                console.log("(Patient.controller.findById) - Erreur lors de la récupération du patient : " + err);
+            } 
+            else {
+                console.log("(Patient.controller.findById) -Patient retourné " + patient)
+                res.status(201).json({patient:patient})
+            }
+        })
     } catch(err) {
         res.status(400).json({err:err})
     }

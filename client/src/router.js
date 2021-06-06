@@ -31,6 +31,12 @@ export default new Router({
             component: () => import('./components/PatientComponent')
         }, 
         {
+            path:"/patients/consultations/:id",
+            alias:"consultation",
+            name:"consultation",
+            component: () => import('./components/ConsultationComponent')
+        },
+        {
             path:"/compta",
             alias:"compta",
             name:"compta",

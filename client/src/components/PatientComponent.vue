@@ -14,24 +14,57 @@
                         <template v-slot:top>
                             <v-text-field
                             v-model="search"
-                            label="Search (UPPER CASE ONLY)"
+                            label="Rechercher (En Majuscule)"
                             class="mx-4"
                             ></v-text-field>
                         </template>
+                        <template v-slot:item.dateNaiss="{ item }">
+                                <span>{{ new Date(item.dateNaiss).toLocaleDateString() }}</span>
+                        </template>
                         <template v-slot:item.actions="{ item }">
-                            <v-icon
-                                small
-                                class="mr-2"
-                                @click="editItem(item)"
-                            >
-                                mdi-pencil
-                            </v-icon>
-                            <v-icon
-                                small
-                                @click="deleteItem(item)"
-                            >
-                                mdi-delete
-                            </v-icon>
+                            <v-tooltip bottom>
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-icon
+                                        small
+                                        class="mr-2"
+                                        @click="editItem(item)"
+                                        v-bind="attrs"
+                                        v-on="on"
+                                    >
+                                        mdi-pencil
+                                    </v-icon>
+                                </template>
+                                <span>Modifier</span>
+                            </v-tooltip>
+                            <v-tooltip bottom> 
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-icon
+                                        small
+                                        @click="deleteItem(item)"
+                                        v-bind="attrs"
+                                        v-on="on"
+                                    >
+                                        mdi-delete
+                                    </v-icon>
+                                </template>
+                                <span>Supprimer</span>
+                            </v-tooltip>
+                            <v-tooltip bottom>
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-icon
+                                    color="grey"
+                                    dark
+                                    v-bind="attrs"
+                                    v-on="on"
+                                    style="font-size:13px;"
+                                    class="mg-l-10"
+                                    @click="showConsultation(item)"
+                                    >
+                                    fas fa-file-medical
+                                    </v-icon>
+                                </template>
+                                <span>Consultations</span>
+                            </v-tooltip>
                             </template>
                             <template v-slot:no-data>
                             <v-btn
@@ -191,7 +224,7 @@ import moment from 'moment'
                 editedIndex:-1
             }
         },
-        async created() {
+        created() {
             this.getAllPatients()
         },
         // si utilisateur non connecté -> redirection vers page d'accueil
@@ -307,10 +340,14 @@ import moment from 'moment'
             closeDelete () {
                 this.dialogDelete = false
                 this.$nextTick(() => {
-                this.editedItem = Object.assign({}, this.defaultItem)
-                this.editedIndex = -1
+                    this.editedItem = Object.assign({}, this.defaultItem)
+                    this.editedIndex = -1
                 })
             },
+            showConsultation(item) {
+                this.$router.push('/patients/consultations/' + item._id)
+
+            } ,
             getAllPatients() {
                 axios.post('http://localhost:8000/patient/findAll').then(response => {
                     this.patients = response.data.patients

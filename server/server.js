@@ -35,8 +35,11 @@ app.use(bodyParser.urlencoded({extended:true}));
 // routes 
 const utilisateurRoutes = require("./app/routes/utilisateur.routes");
 const patientRoutes = require('./app/routes/patient.routes')
+const consultationRoutes = require('./app/routes/consultation.routes')
+
 app.use('/utilisateur',utilisateurRoutes);
 app.use('/patient',patientRoutes); 
+app.use('/consultation',consultationRoutes);
 
 // simple route
 app.get("/",(req,res) => {
